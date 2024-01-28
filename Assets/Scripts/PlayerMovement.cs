@@ -22,19 +22,26 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (!gameManager.gameRunning) { return; }
+        if (!gameManager.gameRunning)
+        {
+            if (currrentAnim.Name != "Walk/Idle")
+            {
+                skeletonAnimation.AnimationState.SetAnimation(0, "Walk/Idle", true);
+            }
+            return;
+        }
         if (Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector3.left * speed * Time.deltaTime);
-            if(currrentAnim.Name == "Walk/Left") { return; }
-            skeletonAnimation.AnimationState.SetAnimation(0, "Walk/Left", true);
+            if(currrentAnim.Name == "Walk/Right") { return; }
+            skeletonAnimation.AnimationState.SetAnimation(0, "Walk/Right", true);
             currrentAnim = skeletonAnimation.AnimationState.GetCurrent(0).Animation;
         }
         else if (Input.GetKey(KeyCode.D))
         {
             transform.Translate(Vector3.right * speed * Time.deltaTime);
-            if (currrentAnim.Name == "Walk/Right") { return; }
-            skeletonAnimation.AnimationState.SetAnimation(0, "Walk/Right", true);
+            if (currrentAnim.Name == "Walk/Left") { return; }
+            skeletonAnimation.AnimationState.SetAnimation(0, "Walk/Left", true);
             currrentAnim = skeletonAnimation.AnimationState.GetCurrent(0).Animation;
         }
         else

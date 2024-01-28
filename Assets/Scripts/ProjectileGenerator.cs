@@ -44,7 +44,7 @@ public class ProjectileGenerator : MonoBehaviour
             {
                 if (!projectilePool[i].activeInHierarchy)
                 {
-                    StartCoroutine(ThrowProjectile(projectilePool[i]));
+                    projectilePool[i].SetActive(true);
                     projectileCoolDownTimer = (projectileCooldown / 100) * gameManager.satisfaction;
                     break;
                 }
@@ -61,7 +61,7 @@ public class ProjectileGenerator : MonoBehaviour
             {
                 if (!pointPool[i].activeInHierarchy)
                 {
-                    StartCoroutine(ThrowProjectile(pointPool[i]));
+                    pointPool[i].SetActive(true);
                     pointCoolDownTimer = pointCooldown;
                     break;
                 }
@@ -69,19 +69,5 @@ public class ProjectileGenerator : MonoBehaviour
         }
     }
 
-    public IEnumerator ThrowProjectile(GameObject projectile)
-    {
-        projectile.SetActive(true);
-        projectile.transform.position = new Vector2(Random.Range(-8.5f, 8.5f), projectile.transform.position.y);
-        projectile.transform.localScale = Vector2.zero;
-        LeanTween.moveLocalY(projectile, 8.50f, 1f).setEase(tweenUp);
-        LeanTween.scale(projectile, Vector2.one * .5f, 1f);
-        yield return new WaitForSeconds(1f);
-        projectile.GetComponent<Collider2D>().enabled = true;
-        LeanTween.moveLocalY(projectile, 0f, 1f).setEase(tweenDown);
-        LeanTween.scale(projectile, Vector2.one, 1f);
-        yield return new WaitForSeconds(1f);
-        projectile.GetComponent<Collider2D>().enabled = false;
-        projectile.SetActive(false);
-    }
+    
 }

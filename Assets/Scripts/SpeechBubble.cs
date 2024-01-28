@@ -1,3 +1,4 @@
+using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,9 +8,21 @@ public class SpeechBubble : MonoBehaviour
 {
     bool playerInputting = false;
     [SerializeField] TextMeshProUGUI speechText;
+    SkeletonGraphic skeletonGraphic;
+    GameManager gameManager;
+    private void Awake()
+    {
+        skeletonGraphic = GetComponent<SkeletonGraphic>();
+        gameManager = FindObjectOfType<GameManager>();
+    }
 
-
-
+    private void Update()
+    {
+        if(!gameManager.gameRunning && speechText.enabled)
+        {
+            DisableSpeechBubble();
+        }
+    }
     public void SetPlayerInputting(bool val)
     {
         if (!Settings.GetSpeechBubbleEnabled()) { return; }
@@ -17,7 +30,6 @@ public class SpeechBubble : MonoBehaviour
         playerInputting = val;
         if (playerInputting) { StartCoroutine(PlayerInputtingRoutine()); }
     }
-
     IEnumerator PlayerInputtingRoutine()
     {
         EnableSpeechBubble();
@@ -37,11 +49,9 @@ public class SpeechBubble : MonoBehaviour
     {
         if (!Settings.GetSpeechBubbleEnabled()) { return; }
 
-        EnableSpeechBubble();
-        Invoke(nameof(ClearSpeechBubble), 4f);
+        Invoke(nameof(DisableSpeechBubble), 4f);
         speechText.enabled = true;
         speechText.text = text;
-
     }
 
     public void ClearSpeechBubble()
@@ -53,12 +63,18 @@ public class SpeechBubble : MonoBehaviour
 
     public void EnableSpeechBubble()
     {
-        speechText.enabled = false;
+        StartCoroutine(EnableSpeechBubbleRoutine());
     }
-
+    IEnumerator EnableSpeechBubbleRoutine()
+    {
+        skeletonGraphic.AnimationState.SetAnimation(0, "Enable", false);
+        yield return new WaitUntil(() => skeletonGraphic.AnimationState.GetCurrent(0).IsComplete);
+        skeletonGraphic.AnimationState.SetAnimation(0, "Idle", true);
+        speechText.enabled = true;
+    }
     public void DisableSpeechBubble()
     {
-        //spine anim
+        skeletonGraphic.AnimationState.SetAnimation(0, "Disable", false);
         ClearSpeechBubble();
     }
 

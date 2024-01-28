@@ -1,12 +1,13 @@
 using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Environment : MonoBehaviour
 {
     SkeletonAnimation spineAsset;
-
+    [SerializeField] TextMeshProUGUI prompterText;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class Environment : MonoBehaviour
     }
     IEnumerator CloseCurtainsRoutine()
     {
+        prompterText.enabled = false;
         spineAsset.AnimationState.SetAnimation(0, "Curtains/Close", false);
         yield return new WaitUntil(() => spineAsset.AnimationState.GetCurrent(0).IsComplete);
         spineAsset.AnimationState.SetAnimation(0, "Curtains/Close idle", true);
@@ -40,6 +42,7 @@ public class Environment : MonoBehaviour
         spineAsset.AnimationState.SetAnimation(0, "Curtains/Open", false);
         yield return new WaitUntil(() => spineAsset.AnimationState.GetCurrent(0).IsComplete);
         spineAsset.AnimationState.SetAnimation(0, "Curtains/Open Idle", true);
+        prompterText.enabled = true;
     }
 
     public void SetTelepropmterRecording(bool val)
