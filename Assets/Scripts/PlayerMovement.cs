@@ -1,3 +1,4 @@
+using Spine;
 using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +19,13 @@ public class PlayerMovement : MonoBehaviour
         skeletonAnimation.AnimationState.SetAnimation(2, "Constant/Breathing", true);
         skeletonAnimation.AnimationState.SetAnimation(0, "Movement/Idle", true);
         currrentAnim = skeletonAnimation.AnimationState.GetCurrent(0).Animation;
+        int randomIndex = Random.Range(1, 5);
+        skeletonAnimation.skeleton.SetSkin("Head " + randomIndex.ToString());
+        skeletonAnimation.skeleton.SetSlotsToSetupPose();
     }
+
+
+
     public void RandomGesture()
     {
         StartCoroutine(RandomGestureRoutine());

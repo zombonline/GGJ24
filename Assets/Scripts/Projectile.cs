@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-        skeletonAnimation = FindObjectOfType<SkeletonAnimation>();
+        skeletonAnimation = GetComponent<SkeletonAnimation>();
         gameObject.SetActive(false);
     }
 
@@ -36,18 +36,33 @@ public class Projectile : MonoBehaviour
             {
                 FMODController.Play3DSFX("event:/Projectiles/Projectiles_Rose_Catch", transform.position);
                 gameManager.points += points;
+                gameObject.SetActive(false);
+
             }
-            if(CompareTag("Projectile"))
+            if (CompareTag("Projectile"))
             {
                 gameManager.DecreaseHitPoints();
+                StartCoroutine(SplashAnimationRoutine());
             }
         }
+    }
+
+    IEnumerator SplashAnimationRoutine()
+    {
+        skeletonAnimation.skeleton.SetSkin("Splash");
+        skeletonAnimation.skeleton.SetSlotsToSetupPose();
+        skeletonAnimation.AnimationState.SetAnimation(0, "Splash", false);
+        yield return new WaitUntil(() => skeletonAnimation.AnimationState.GetCurrent(0).IsComplete);
         gameObject.SetActive(false);
     }
 
-
     public IEnumerator ThrowProjectileRoutine()
     {
+        if (CompareTag("Projectile"))
+        {
+            skeletonAnimation.skeleton.SetSkin("Tomato");
+            skeletonAnimation.skeleton.SetSlotsToSetupPose();
+        }
         skeletonAnimation.AnimationState.SetAnimation(0, "Throw", true);
         transform.position = new Vector2(Random.Range(-8.5f, 8.5f), transform.position.y);
         transform.localScale = Vector2.zero;
@@ -62,7 +77,9 @@ public class Projectile : MonoBehaviour
         if (CompareTag("Projectile"))
         {
             FMODController.Play3DSFX("event:/Projectiles/Projectiles_Tomato_Splat", transform.position);
-            skeletonAnimation.AnimationState.SetAnimation(0, "Splat", false);
+            skeletonAnimation.skeleton.SetSkin("Splash");
+            skeletonAnimation.skeleton.SetSlotsToSetupPose();
+            skeletonAnimation.AnimationState.SetAnimation(0, "Splash", false);
             yield return new WaitUntil(() => skeletonAnimation.AnimationState.GetCurrent(0).IsComplete);
         }
         gameObject.SetActive(false);

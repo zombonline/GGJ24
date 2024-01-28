@@ -11,7 +11,6 @@ public class Timer : MonoBehaviour
     [SerializeField] float startTime;
     float timeRemaining, mins, secs;
     bool soundTriggered = false;
-    [SerializeField] Image[] hitPointIcons;
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();

@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public bool gameRunning = false;
     [SerializeField] UnityEvent gameStarted;
 
-    [SerializeField] TextMeshProUGUI textPoints, textPrompter;
+    [SerializeField] TextMeshProUGUI textPoints, textFinalPoints, textPrompter;
     [SerializeField] TextAsset jokesTextAsset;
     string[] jokes;
     public string currentJoke;
@@ -63,9 +63,8 @@ public class GameManager : MonoBehaviour
             }
             satisfaction -= 1;
             satisfactionDecreaseTimer = satisfactionDecreaseTime;
-
         }
-        textPoints.text = "POINTS: " + points.ToString();
+        textPoints.text = points.ToString();
         satisfactionSlider.value = (float)satisfaction / 100;
 
   
@@ -87,26 +86,27 @@ public class GameManager : MonoBehaviour
         if (hitPoints == 2) { FMODController.Play3DSFX("event:/Character/Character_Damage_01", GameObject.Find("Player").transform.position); }
         else if (hitPoints == 1) { FMODController.Play3DSFX("event:/Character/Character_Damage_02", GameObject.Find("Player").transform.position); }
         else { FMODController.Play3DSFX("event:/Character/Character_Damage_03", GameObject.Find("Player").transform.position); }
+
+        for (int i = 0; i < hitPointIcons.Length; i++)
+        {
+            if (i + 1 > hitPoints)
+            {
+                hitPointIcons[i].gameObject.SetActive(false);
+            }
+        }
         if (hitPoints <= 0 && gameRunning)
         {
             hitPoints = 3;
+            foreach(Image icon in hitPointIcons) { icon.gameObject.SetActive(true); }
             GameOver();
-        }
-
-        for(int i = 0; i < hitPointIcons.Length; i++)
-        {
-            if(i+1 > hitPoints)
-            {
-                gameObject.SetActive(false);
-            }
         }
     }
 
     public void GameOver()
     {
         environment.CloseCurtains();
+        textFinalPoints.text = points.ToString();
         gameRunning = false;
-        Debug.Log("GameOver");
         screenGameOver.SetActive(true);
     }
 
