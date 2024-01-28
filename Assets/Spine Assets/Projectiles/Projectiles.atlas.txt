@@ -1,0 +1,14 @@
+Projectiles.png
+	size: 1006, 388
+	filter: Linear, Linear
+	pma: true
+Rose
+	bounds: 2, 2, 430, 384
+Splat
+	bounds: 434, 14, 360, 372
+Tomato
+	bounds: 796, 159, 227, 208
+	rotate: 90
+Vine
+	bounds: 796, 15, 142, 147
+	rotate: 90
