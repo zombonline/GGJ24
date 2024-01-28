@@ -25,6 +25,39 @@
 	</object>
 	<object class="MixerBusPanner" id="{8e37dc69-12c5-4672-8344-40268b3f762a}" />
 	<object class="SFXReverbEffect" id="{e6b115b2-63b2-487f-971f-e584eca22859}">
+		<property name="decayTime">
+			<value>2100</value>
+		</property>
+		<property name="earlyDelay">
+			<value>20.5</value>
+		</property>
+		<property name="lateDelay">
+			<value>23.5</value>
+		</property>
+		<property name="HFReference">
+			<value>3800</value>
+		</property>
+		<property name="HFDecayRatio">
+			<value>72.5</value>
+		</property>
+		<property name="diffusion">
+			<value>84.5</value>
+		</property>
+		<property name="density">
+			<value>80</value>
+		</property>
+		<property name="lowShelfFrequency">
+			<value>110</value>
+		</property>
+		<property name="lowShelfGain">
+			<value>-5.5</value>
+		</property>
+		<property name="highCut">
+			<value>10000</value>
+		</property>
+		<property name="earlyLateMix">
+			<value>55</value>
+		</property>
 		<property name="wetLevel">
 			<value>0</value>
 		</property>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{07b21420-9a2a-408b-b398-6e17e63cbc50}">
+		<property name="name">
+			<value>Curtains</value>
+		</property>
+		<relationship name="folder">
+			<destination>{6efe80d7-e884-447c-85bf-4059068a4798}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{cda8fdbb-fbf0-4c37-9a67-cfcc87172a5d}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{cda8fdbb-fbf0-4c37-9a67-cfcc87172a5d}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>1.2000000476837158</value>
+		</property>
+	</object>
+</objects>

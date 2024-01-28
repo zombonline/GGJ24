@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{a5d2e999-fe25-4bb6-abc6-4e25822a52a3}">
+		<property name="assetPath">
+			<value>Stage/Stage_Light_On_01.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.3580416666666666</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e3c3b702-1856-4f9c-82d1-f96e7a076774}</destination>
+		</relationship>
+	</object>
+</objects>

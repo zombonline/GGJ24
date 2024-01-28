@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{6337ad15-0a9d-429d-a87d-21a4967d2417}">
+		<property name="assetPath">
+			<value>Projectiles/Projectiles_Rose_Catch_01.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.7233749999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e3c3b702-1856-4f9c-82d1-f96e7a076774}</destination>
+		</relationship>
+	</object>
+</objects>

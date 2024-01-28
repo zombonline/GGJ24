@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{1917564e-cd84-4b26-83f0-84911b26fcc2}">
+		<property name="assetPath">
+			<value>Projectiles/Projectiles_Tomato_Splat_01.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.26502083333333332</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e3c3b702-1856-4f9c-82d1-f96e7a076774}</destination>
+		</relationship>
+	</object>
+</objects>
