@@ -1,14 +1,29 @@
 Projectiles.png
-	size: 1006, 388
+	size: 1692, 1039
 	filter: Linear, Linear
 	pma: true
 Rose
-	bounds: 2, 2, 430, 384
-Splat
-	bounds: 434, 14, 360, 372
+	bounds: 477, 19, 456, 410
+Splat_1
+	bounds: 935, 24, 62, 61
+Splat_2
+	bounds: 1548, 219, 98, 123
+Splat_3
+	bounds: 1526, 20, 158, 190
+Splat_4
+	bounds: 1297, 212, 249, 279
+Splat_5
+	bounds: 935, 87, 360, 372
+Splat_6
+	bounds: 2, 18, 411, 473
+	rotate: 90
+Splat_7
+	bounds: 1148, 493, 479, 544
+Splat_8
+	bounds: 599, 461, 547, 576
+Splat_9
+	bounds: 2, 431, 595, 606
 Tomato
-	bounds: 796, 159, 227, 208
-	rotate: 90
+	bounds: 1297, 2, 227, 208
 Vine
-	bounds: 796, 15, 142, 147
-	rotate: 90
+	bounds: 1548, 344, 142, 147
