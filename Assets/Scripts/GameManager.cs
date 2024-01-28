@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
     public void DecreaseHitPoints()
     {
         hitPoints -= 1;
+        if(hitPoints == 2) { FMODController.PlaySFX("Character__Damage_01"); }
         textHitpoints.text = "HIT POINTS: " + hitPoints.ToString() + "/" + startingHitPoints.ToString();
         if (hitPoints <= 0 && gameRunning)
         {
