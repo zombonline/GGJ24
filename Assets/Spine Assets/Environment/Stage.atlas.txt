@@ -1,0 +1,45 @@
+Stage.png
+	size: 7789, 6452
+	filter: Linear, Linear
+	pma: true
+Audience BG
+	bounds: 2, 5257, 5914, 1193
+Audience FG
+	bounds: 2, 552, 3933, 1119
+Audience Mid
+	bounds: 2, 1673, 3944, 1262
+Background
+	bounds: 2, 2937, 3842, 2318
+Balcony
+	bounds: 6876, 2228, 3842, 856
+	rotate: 90
+Balcony Audience
+	bounds: 3937, 2, 3842, 723
+Curtains Left
+	bounds: 3846, 2980, 2275, 2251
+	rotate: 90
+Curtains Right
+	bounds: 3948, 727, 2275, 2251
+Green Light
+	bounds: 6225, 1415, 167, 170
+Left Mic
+	bounds: 6099, 3169, 751, 784
+Middle Mic
+	bounds: 6225, 2376, 606, 791
+Orange Light
+	bounds: 7455, 6277, 168, 173
+Red Light
+	bounds: 5918, 5896, 173, 174
+Right Mic
+	bounds: 6225, 1587, 340, 787
+Spotlight
+	bounds: 6099, 3955, 775, 2115
+Stage
+	bounds: 2, 161, 3842, 389
+Stage Lights Off
+	bounds: 7734, 2684, 3766, 53
+	rotate: 90
+Stage Lights On
+	bounds: 2, 44, 3829, 115
+Teleprompter
+	bounds: 5918, 6072, 1535, 378

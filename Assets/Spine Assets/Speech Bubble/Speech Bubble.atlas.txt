@@ -1,0 +1,6 @@
+Speech Bubble.png
+	size: 1260, 523
+	filter: Linear, Linear
+	pma: true
+Speech Bubble
+	bounds: 2, 2, 1256, 519

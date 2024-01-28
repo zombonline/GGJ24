@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ProjectileGenerator : MonoBehaviour
 {
+    GameManager gameManager;
     [SerializeField] LeanTweenType tweenUp, tweenDown;
 
     [SerializeField] GameObject[] projectilePool;
@@ -11,7 +12,6 @@ public class ProjectileGenerator : MonoBehaviour
 
 
     [Range(1, 100)]
-    [SerializeField] int targetSatisfaction = 80;
 
     [SerializeField] float projectileCooldown = 1f;
     float projectileCoolDownTimer;
@@ -20,6 +20,7 @@ public class ProjectileGenerator : MonoBehaviour
     float pointCoolDownTimer;
     private void Awake()
     {
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Start()
@@ -29,6 +30,7 @@ public class ProjectileGenerator : MonoBehaviour
 
     private void Update()
     {
+        if (!gameManager.gameRunning) { return; }
         ThrowProjectiles();
         ThrowPoints();
     }
@@ -43,7 +45,7 @@ public class ProjectileGenerator : MonoBehaviour
                 if (!projectilePool[i].activeInHierarchy)
                 {
                     StartCoroutine(ThrowProjectile(projectilePool[i]));
-                    projectileCoolDownTimer = (projectileCooldown / 100) * GameManager.satisfaction;
+                    projectileCoolDownTimer = (projectileCooldown / 100) * gameManager.satisfaction;
                     break;
                 }
             }
@@ -51,7 +53,7 @@ public class ProjectileGenerator : MonoBehaviour
     }
     private void ThrowPoints()
     {
-        if(GameManager.satisfaction < targetSatisfaction) { return; }
+        if(gameManager.satisfaction < gameManager.targetSatisfaction) { return; }
         pointCoolDownTimer -= Time.deltaTime;
         if (pointCoolDownTimer <= 0f)
         {

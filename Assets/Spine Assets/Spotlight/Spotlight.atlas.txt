@@ -1,0 +1,6 @@
+Spotlight.png
+	size: 779, 2119
+	filter: Linear, Linear
+	pma: true
+Spotlight
+	bounds: 2, 2, 775, 2115

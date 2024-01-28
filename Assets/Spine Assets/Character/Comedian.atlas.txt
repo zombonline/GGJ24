@@ -1,0 +1,33 @@
+Comedian.png
+	size: 804, 382
+	filter: Linear, Linear
+	pma: true
+Body
+	bounds: 655, 198, 135, 182
+H Left Leg
+	bounds: 669, 8, 38, 188
+L Left Leg
+	bounds: 669, 8, 38, 188
+H Right Leg
+	bounds: 709, 8, 38, 188
+L Right Leg
+	bounds: 709, 8, 38, 188
+Head 1
+	bounds: 232, 2, 178, 180
+	rotate: 90
+Head 2
+	bounds: 433, 177, 203, 220
+	rotate: 90
+Head 3
+	bounds: 2, 182, 429, 198
+Head 4
+	bounds: 2, 28, 152, 228
+	rotate: 90
+Left Arm
+	bounds: 414, 30, 98, 145
+Left Hand
+	bounds: 614, 14, 53, 161
+Right Hand
+	bounds: 749, 35, 53, 161
+Right arm
+	bounds: 514, 30, 98, 145

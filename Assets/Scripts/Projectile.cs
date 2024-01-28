@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    GameManager gameManager;
     [SerializeField] int points = 10;
-    [SerializeField] int damage = 1;
+
+    private void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!gameManager.gameRunning) { return; }
         if(collision.CompareTag("Player"))
         {
             if(CompareTag("Point"))
             {
-                GameManager.points += points;
+                gameManager.points += points;
             }
             if(CompareTag("Projectile"))
             {
-                GameManager.hitPoints -= damage;
+                gameManager.DecreaseHitPoints();
             }
-            Debug.Log("Hitpoints: " + GameManager.hitPoints);
-            Debug.Log("Points: " + GameManager.points);
         }
 
     }
