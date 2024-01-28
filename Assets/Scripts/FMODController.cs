@@ -14,9 +14,19 @@ public class FMODController : MonoBehaviour
 
     public static void PlaySFX(string val, string param = null, int paramVal = 0)
     {
+
         var newAudioEvent = RuntimeManager.CreateInstance(val);
         newAudioEvent.start();
         if(param == null) { return; }
+        newAudioEvent.setParameterByName(param, paramVal);
+    }
+    public static void Play3DSFX(string val, Vector3 position, string param = null, int paramVal = 0)
+    {
+
+        var newAudioEvent = RuntimeManager.CreateInstance(val);
+        newAudioEvent.set3DAttributes(position.To3DAttributes());
+        newAudioEvent.start();
+        if (param == null) { return; }
         newAudioEvent.setParameterByName(param, paramVal);
     }
     public static void PlaySFXNoParams(string val)

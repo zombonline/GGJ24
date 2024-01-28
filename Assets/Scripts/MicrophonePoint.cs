@@ -33,19 +33,24 @@ public class MicrophonePoint : MonoBehaviour
             talkTimer -= Time.deltaTime;
             if(talkTimer <= 0f || Microphone.GetPosition(Settings.activeMicrophone) >= clip.samples)
             {
-                StartCoroutine(FinishJoke());
+                StartCoroutine(DisableMicrophonePointRoutine());
             }
         }
         if(canRecord && !recording && Input.GetKeyDown(KeyCode.Space))
         {
+            FMODController.Play3DSFX("event:/Stage/Stage_Microphone_On", transform.position);
             StartRecording();
         }
     }
-
-    private IEnumerator FinishJoke()
+    public void DisableMicrophonePoint()
+    {
+        StartCoroutine(DisableMicrophonePointRoutine());
+    }
+    private IEnumerator DisableMicrophonePointRoutine()
     {
         StopRecording();
         canRecord = false;
+        FMODController.Play3DSFX("event:/Stage/Stage_Light_Off", transform.position);
         spotLight.AnimationState.SetAnimation(0, "Off", false);
         yield return new WaitUntil(() => spotLight.AnimationState.GetCurrent(0).IsComplete);
         spotLight.AnimationState.SetAnimation(0, "Idle Off", true);
@@ -68,6 +73,7 @@ public class MicrophonePoint : MonoBehaviour
     {
         lightsOn = true;
         spotLight.AnimationState.SetAnimation(0, "On", false);
+        FMODController.Play3DSFX("event:/Stage/Stage_Light_On", transform.position);
         yield return new WaitUntil(() => spotLight.AnimationState.GetCurrent(0).IsComplete);
         spotLight.AnimationState.SetAnimation(0, "Idle On", true);
     }
@@ -82,7 +88,7 @@ public class MicrophonePoint : MonoBehaviour
         if (other.CompareTag("Player")) {
             if(recording)
             {
-                StartCoroutine(FinishJoke());
+                StartCoroutine(DisableMicrophonePointRoutine());
             }
         }
     }

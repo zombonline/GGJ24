@@ -26,6 +26,7 @@ public class Environment : MonoBehaviour
     }
     IEnumerator CloseCurtainsRoutine()
     {
+        FMODController.PlaySFX("event:/Stage/Stage_Curtains_Close");
         prompterText.enabled = false;
         spineAsset.AnimationState.SetAnimation(0, "Curtains/Close", false);
         yield return new WaitUntil(() => spineAsset.AnimationState.GetCurrent(0).IsComplete);
@@ -38,6 +39,7 @@ public class Environment : MonoBehaviour
     }
     IEnumerator OpenCurtainsRoutine()
     {
+        FMODController.PlaySFX("event:/Stage/Stage_Curtains_Open");
         Debug.Log("curtains opening");
         spineAsset.AnimationState.SetAnimation(0, "Curtains/Open", false);
         yield return new WaitUntil(() => spineAsset.AnimationState.GetCurrent(0).IsComplete);

@@ -9,6 +9,7 @@ public class Timer : MonoBehaviour
     [SerializeField] TextMeshProUGUI textTimer;
     [SerializeField] float startTime;
     float timeRemaining, mins, secs;
+    bool soundTriggered = false;
 
     private void Awake()
     {
@@ -23,11 +24,17 @@ public class Timer : MonoBehaviour
         mins = Mathf.FloorToInt(timeRemaining / 60f);
         secs = timeRemaining % 60f;
         textTimer.text = mins.ToString("00") + ":" + secs.ToString("00");
+        if(timeRemaining <= 10f && !soundTriggered)
+        {
+            soundTriggered = true;
+            FMODController.Play3DSFX("event:/Stage/Stage_Timer_Last10Seconds", transform.position);
+        }
 
-        if(timeRemaining < 0f)
+        if (timeRemaining < 0f)
         {
             textTimer.text = 0.ToString("00") + ":" + 0.ToString("00");
-            timeRemaining = 3;
+            timeRemaining = startTime;
+            soundTriggered = false;
             gameManager.GameOver();
         }
     }

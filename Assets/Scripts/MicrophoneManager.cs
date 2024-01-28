@@ -12,7 +12,13 @@ public class MicrophoneManager : MonoBehaviour
         environment = FindObjectOfType<Environment>();
         gameManager = FindObjectOfType<GameManager>();
     }
-
+    public void DisableAllMicrophones()
+    {
+        foreach(MicrophonePoint mic in microphones)
+        {
+            mic.DisableMicrophonePoint();
+        }
+    }
     public void EnableRandomMicrophone()
     {
         if(!gameManager.gameRunning) { return; }
