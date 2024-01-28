@@ -5,7 +5,9 @@ using FMODUnity;
 public class FMODController : MonoBehaviour
 {
     static FMOD.Studio.EventInstance snapshotReverb;
-    List<FMOD.Studio.EventInstance> loopingInstances = new List<FMOD.Studio.EventInstance>();
+    static List<FMOD.Studio.EventInstance> loopingInstances = new List<FMOD.Studio.EventInstance>();
+
+    FMOD.Studio.EventInstance audienceAmbience;
 
     private void Awake()
     {
@@ -35,11 +37,12 @@ public class FMODController : MonoBehaviour
         newAudioEvent.start();
     }
 
-    public void StartLoopedSFX(string val)
+    public static FMOD.Studio.EventInstance StartLoopedSFX(string val)
     {
         var audioEvent = RuntimeManager.CreateInstance(val);
         audioEvent.start();
         loopingInstances.Add(audioEvent);
+        return audioEvent;
     }
 
     public void StopLoopedSFX(string val)

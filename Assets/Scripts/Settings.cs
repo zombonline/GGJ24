@@ -13,6 +13,14 @@ public class Settings : MonoBehaviour
     {
         PopulateMicrophoneDropDown();
     }
+
+    private void Update()
+    {
+        if(microphoneDropdown.options.Count < Microphone.devices.Length)
+        {
+            PopulateMicrophoneDropDown();
+        }
+    }
     public void SetSpeechBubbleEnabled(bool val)
     {
         PlayerPrefs.SetInt(SPEECH_BUBBLE_ENABLED, BoolToInt(val));

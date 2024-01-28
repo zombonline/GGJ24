@@ -21,7 +21,8 @@ public class MicrophonePoint : MonoBehaviour
     private bool recording;
 
     bool lightsOn;
-    
+
+    [SerializeField] SpriteRenderer promptCTRL, promptKB;
 
     private void Start() {
         gameManager = FindObjectOfType<GameManager>();
@@ -36,7 +37,23 @@ public class MicrophonePoint : MonoBehaviour
                 StartCoroutine(DisableMicrophonePointRoutine());
             }
         }
-        if(canRecord && !recording && Input.GetKeyDown(KeyCode.Space))
+        if(canRecord && !recording)
+        {
+            if(Input.GetJoystickNames().Length > 0)
+            {
+                promptCTRL.enabled = true;
+            }
+            else
+            {
+                promptKB.enabled = true;
+            }
+        }
+        else
+        {
+            promptCTRL.enabled = false;
+            promptKB.enabled = false;
+        }
+        if(canRecord && !recording && Input.GetAxis("Jump") > 0)
         {
             FMODController.Play3DSFX("event:/Stage/Stage_Microphone_On", transform.position);
             StartRecording();
@@ -78,13 +95,14 @@ public class MicrophonePoint : MonoBehaviour
         spotLight.AnimationState.SetAnimation(0, "Idle On", true);
     }
     
-    private void OnTriggerEnter2D(Collider2D other) {
+    private void OnTriggerStay2D(Collider2D other) {
         if (other.CompareTag("Player")&& lightsOn)
         {
             canRecord = true;
         }
     }
     private void OnTriggerExit2D(Collider2D other) {
+        canRecord = false;
         if (other.CompareTag("Player")) {
             if(recording)
             {
@@ -93,7 +111,6 @@ public class MicrophonePoint : MonoBehaviour
         }
     }
     private void StartRecording() {
-        FindObjectOfType<SpeechBubble>().SetPlayerInputting(true);
         clip = Microphone.Start(Settings.activeMicrophone, false, 4, 44100);
         recording = true;
         FindObjectOfType<Environment>().SetTelepropmterRecording(true);
@@ -106,7 +123,6 @@ public class MicrophonePoint : MonoBehaviour
         clip.GetData(samples, 0);
         bytes = EncodeAsWAV(samples, clip.frequency, clip.channels);
         recording = false;
-        FindObjectOfType<SpeechBubble>().SetPlayerInputting(false);
         SendRecording();
         FindObjectOfType<Environment>().SetTelepropmterRecording(false);
     }
@@ -118,6 +134,7 @@ public class MicrophonePoint : MonoBehaviour
         }, error => {
             Debug.Log(error);
         });
+        FindObjectOfType<PlayerMovement>().RandomGesture();
     }
 
     private byte[] EncodeAsWAV(float[] samples, int frequency, int channels) {
@@ -166,6 +183,11 @@ public class MicrophonePoint : MonoBehaviour
         FindObjectOfType<Environment>().SetTeleprompterFeedback(percentage);
         FindObjectOfType<Environment>().SetAudienceFeedback(percentage > 50);
         gameManager.IncreaseSatisfaction(percentage);
+        if(percentage < 25) { FMODController.PlaySFX("event:/Audience/Audience_Laugh_Tier1"); }
+        else if (percentage < 50) { FMODController.PlaySFX("event:/Audience/Audience_Laugh_Tier2"); }
+        else if (percentage < 75) { FMODController.PlaySFX("event:/Audience/Audience_Laugh_Tier3"); }
+        else if (percentage <= 100) { FMODController.PlaySFX("event:/Audience/Audience_Laugh_Tier4"); }
+
     }
 
 }
