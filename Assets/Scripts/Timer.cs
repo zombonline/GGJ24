@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class Timer : MonoBehaviour
     [SerializeField] float startTime;
     float timeRemaining, mins, secs;
     bool soundTriggered = false;
-
+    [SerializeField] Image[] hitPointIcons;
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();

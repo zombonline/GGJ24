@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public bool gameRunning = false;
     [SerializeField] UnityEvent gameStarted;
 
-    [SerializeField] TextMeshProUGUI textPoints, textSatisfaction, textHitpoints, textPrompter;
+    [SerializeField] TextMeshProUGUI textPoints, textPrompter;
     [SerializeField] TextAsset jokesTextAsset;
     string[] jokes;
     public string currentJoke;
@@ -22,12 +23,16 @@ public class GameManager : MonoBehaviour
     float satisfactionDecreaseTimer;
 
     [SerializeField] GameObject screenGameOver;
-
+    [SerializeField] Image[] hitPointIcons;
+    [SerializeField] Slider satisfactionSlider;
 
     Environment environment;
+    FMOD.Studio.EventInstance audienceAmbience;
 
     private void Awake()
     {
+        audienceAmbience = FMODController.StartLoopedSFX("event:/Audience/Audience_Ambience");
+
         environment = FindObjectOfType<Environment>();
 
         hitPoints = startingHitPoints;
@@ -41,9 +46,16 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if(!gameRunning)
-        { return; }
+        {
+            audienceAmbience.setParameterByName("Curtains", 0);
+            return;
+        }
+        audienceAmbience.setParameterByName("Curtains", 1);
         satisfactionDecreaseTimer -= Time.deltaTime;
-        if(satisfactionDecreaseTimer <= 0f && satisfaction > 0)
+        float param = satisfaction / 100f;
+        audienceAmbience.setParameterByName("Satisfaction", param);
+
+        if (satisfactionDecreaseTimer <= 0f && satisfaction > 0)
         {
             if(satisfaction == targetSatisfaction)
             {
@@ -54,7 +66,9 @@ public class GameManager : MonoBehaviour
 
         }
         textPoints.text = "POINTS: " + points.ToString();
-        textSatisfaction.text = "SATISFACTION: " + satisfaction.ToString() + "%";
+        satisfactionSlider.value = (float)satisfaction / 100;
+
+  
     }
 
     public void SetGameRunningState(bool val)
@@ -73,11 +87,18 @@ public class GameManager : MonoBehaviour
         if (hitPoints == 2) { FMODController.Play3DSFX("event:/Character/Character_Damage_01", GameObject.Find("Player").transform.position); }
         else if (hitPoints == 1) { FMODController.Play3DSFX("event:/Character/Character_Damage_02", GameObject.Find("Player").transform.position); }
         else { FMODController.Play3DSFX("event:/Character/Character_Damage_03", GameObject.Find("Player").transform.position); }
-        textHitpoints.text = "HIT POINTS: " + hitPoints.ToString() + "/" + startingHitPoints.ToString();
         if (hitPoints <= 0 && gameRunning)
         {
             hitPoints = 3;
             GameOver();
+        }
+
+        for(int i = 0; i < hitPointIcons.Length; i++)
+        {
+            if(i+1 > hitPoints)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 

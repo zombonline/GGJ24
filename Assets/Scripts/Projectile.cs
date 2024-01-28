@@ -8,14 +8,15 @@ public class Projectile : MonoBehaviour
     GameManager gameManager;
     [SerializeField] int points = 10;
 
-    //SkeletonAnimation skeletonAnimation;
+    SkeletonAnimation skeletonAnimation;
 
     [SerializeField] LeanTweenType tweenUp, tweenDown;
 
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-        //skeletonAnimation = FindObjectOfType<SkeletonAnimation>();
+        skeletonAnimation = FindObjectOfType<SkeletonAnimation>();
+        gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -29,8 +30,11 @@ public class Projectile : MonoBehaviour
         if (!gameManager.gameRunning) { return; }
         if(collision.CompareTag("Player"))
         {
+            StopAllCoroutines();
+            LeanTween.cancel(gameObject);
             if(CompareTag("Point"))
             {
+                FMODController.Play3DSFX("event:/Projectiles/Projectiles_Rose_Catch", transform.position);
                 gameManager.points += points;
             }
             if(CompareTag("Projectile"))
@@ -38,13 +42,13 @@ public class Projectile : MonoBehaviour
                 gameManager.DecreaseHitPoints();
             }
         }
-
+        gameObject.SetActive(false);
     }
 
 
     public IEnumerator ThrowProjectileRoutine()
     {
-        //skeletonAnimation.AnimationState.SetAnimation(0, "Throw", true);
+        skeletonAnimation.AnimationState.SetAnimation(0, "Throw", true);
         transform.position = new Vector2(Random.Range(-8.5f, 8.5f), transform.position.y);
         transform.localScale = Vector2.zero;
         LeanTween.moveLocalY(gameObject, 8.50f, 1f).setEase(tweenUp);
@@ -57,10 +61,10 @@ public class Projectile : MonoBehaviour
         gameObject.GetComponent<Collider2D>().enabled = false;
         if (CompareTag("Projectile"))
         {
-            //skeletonAnimation.AnimationState.SetAnimation(0, "Splat", false);
-            //yield return new WaitUntil(() => skeletonAnimation.AnimationState.GetCurrent(0).IsComplete);
+            FMODController.Play3DSFX("event:/Projectiles/Projectiles_Tomato_Splat", transform.position);
+            skeletonAnimation.AnimationState.SetAnimation(0, "Splat", false);
+            yield return new WaitUntil(() => skeletonAnimation.AnimationState.GetCurrent(0).IsComplete);
         }
         gameObject.SetActive(false);
-
     }
 }

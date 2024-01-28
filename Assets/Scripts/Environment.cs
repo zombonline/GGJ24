@@ -40,6 +40,7 @@ public class Environment : MonoBehaviour
     IEnumerator OpenCurtainsRoutine()
     {
         FMODController.PlaySFX("event:/Stage/Stage_Curtains_Open");
+        FMODController.PlaySFX("event:/Audience/Audience_Applause");
         Debug.Log("curtains opening");
         spineAsset.AnimationState.SetAnimation(0, "Curtains/Open", false);
         yield return new WaitUntil(() => spineAsset.AnimationState.GetCurrent(0).IsComplete);
