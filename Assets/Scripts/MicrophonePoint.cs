@@ -29,6 +29,7 @@ public class MicrophonePoint : MonoBehaviour
         talkTimer = talkTime;
     }   
     private void Update() {
+        if(!gameManager.gameRunning) { StopAllCoroutines(); }
         if(recording)
         {
             talkTimer -= Time.deltaTime;
